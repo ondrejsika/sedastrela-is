@@ -1,0 +1,12 @@
+# Project
+static
+*.sqlite3
+
+# Python
+.env
+*.pyc
+*.egg-info
+
+# Editor
+.idea
+*.swp
