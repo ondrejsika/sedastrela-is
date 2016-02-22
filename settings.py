@@ -19,6 +19,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'sedastrela_is.person',
+    'sedastrela_is.event',
 )
 
 MIDDLEWARE_CLASSES = (
