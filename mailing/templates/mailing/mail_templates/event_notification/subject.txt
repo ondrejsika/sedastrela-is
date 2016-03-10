@@ -1,0 +1,1 @@
+[Seda Strela] {{ event.title }} jiz za {{ event.days_left }} dni - {{ event.from_dt }}

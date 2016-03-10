@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -10,6 +12,10 @@ class Event(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.title, self.id)
+
+    @property
+    def days_left(self):
+        return (self.from_dt - datetime.datetime.now()).days + 1
 
 
 class Attendee(models.Model):

@@ -20,6 +20,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'mailing',
+
     'sedastrela_is.person',
     'sedastrela_is.event',
 )
@@ -69,10 +71,10 @@ DATABASES = {
 
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Prague'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
+USE_TZ = False
 
 STATIC_URL = '/static/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static')

@@ -1,0 +1,18 @@
+Ahoj,
+
+Bude se konat akce "{{ event.title }}" od {{ event.from_dt }} do {{ event.to_dt }}.
+
+Vice informaci o akci zde:
+
+{{ event.text }}
+
+Cena akce je: {{ event.price }} CZK
+
+Dejte nam prosim vedet zda se zucastnite:
+
+ano - http://ss.cz/atttend
+ne - http://ss.cz/no-attend
+
+Dekujeme.
+
+Team Sede Strely

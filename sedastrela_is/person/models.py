@@ -19,3 +19,9 @@ class Person(models.Model):
 
     def __unicode__(self):
         return u'%s %s %s %s' % (self.first_name, self.last_name, self.nick_name or '', self.id)
+
+    def get_emails(self):
+        """
+        Returns list of all available emails for notifications.
+        """
+        return filter(None, (self.email, self.mother_email, self.father_email))
