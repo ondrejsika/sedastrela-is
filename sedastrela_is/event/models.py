@@ -54,3 +54,16 @@ class EventNotification(models.Model):
 
     def __unicode__(self):
         return u'%s %s %s #%s' % (self.event, self.is_sent, self.offset, self.id)
+
+    @classmethod
+    def get_offset(cls, days_left):
+        """
+        Return EventNotification offset by days_left
+        """
+
+        if days_left == 1:
+            return cls.OFFSET_1D
+        if days_left == 7:
+            return cls.OFFSET_1D
+        if days_left == 30:
+            return cls.OFFSET_1M
