@@ -32,3 +32,25 @@ class Attendee(models.Model):
 
     def __unicode__(self):
         return u'%s %s %s' % (self.person, self.event, self.id)
+
+
+class EventNotification(models.Model):
+    OFFSET_1D = '1d'
+    OFFSET_7D = '7d'
+    OFFSET_1M = '1m',
+
+    OFFSETS = (
+        (OFFSET_1D, '1 den'),
+        (OFFSET_7D, '7 dni'),
+        (OFFSET_1M, '1 mesic'),
+    )
+
+    event = models.ForeignKey(Event)
+    is_sent = models.BooleanField(default=False)
+    offset = models.CharField(max_length=4, choices=OFFSETS)
+
+    class Meta:
+        unique_together = ('event', 'offset')
+
+    def __unicode__(self):
+        return u'%s %s %s #%s' % (self.event, self.is_sent, self.offset, self.id)
