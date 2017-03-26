@@ -42,7 +42,10 @@ class Attendee(models.Model):
     paid = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return u'%s %s %s' % (self.person, self.event, self.id)
+        return u'%s %s %s %s' % (self.person, self.event, self.state, self.id)
+
+    class Meta(object):
+        unique_together = ('event', 'person')
 
 
 class EventNotification(models.Model):
