@@ -17,6 +17,16 @@ class Event(models.Model):
     def days_left(self):
         return (self.from_dt - datetime.datetime.now()).days + 1
 
+    def get_sms_notification_numbers(self):
+        from sedastrela_is.person.models import Person
+        without = Attendee.objects.filter(event=self, state=Attendee.NO).values_list('id', flat=True)
+
+        numbers = []
+        for person in Person.objects.exclude(id__in=without):
+            numbers += person.get_preferred_sms_numbers()
+
+        return numbers
+
 
 class Attendee(models.Model):
     YES = 'yes'
@@ -71,8 +81,14 @@ class EventNotification(models.Model):
 
     def send(self):
         from sedastrela_is.event.email import send_event_notification
+        from sedastrela_is.event.sms import send_event_sms_notification
 
-        send_event_notification(self.event)
+        if self.channel == self.CHANNEL_EMAIL:
+            send_event_notification(self.event)
+
+        if self.channel == self.CHANNEL_SMS:
+            # TODO: Not implemented yes, just send mail to admins with instruction to manual send
+            send_event_sms_notification(self.event)
 
         self.is_sent = True
         self.sent_dt = datetime.datetime.now()

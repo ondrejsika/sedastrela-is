@@ -51,8 +51,15 @@ class EventNotificationMailTemplate(MailTemplate):
     is_html = False
 
 
+class SMSEventNotificationMailTemplate(MailTemplate):
+    name = 'sms_event_notification'
+    email_from = settings.DEFAULT_EMAIL_FROM
+    is_html = False
+
+
 _MAIL_TEMPLATES = [
     EventNotificationMailTemplate,
+    SMSEventNotificationMailTemplate,
 ]
 
 MAIL_TEMPLATES = {mt().get_name(): mt for mt in _MAIL_TEMPLATES}

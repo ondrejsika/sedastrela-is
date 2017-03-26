@@ -1,0 +1,11 @@
+Recipients:
+
+{% for number in numbers %}{{number}}, {% endfor %}
+
+Message:
+
+Bude se konat akce "{{ event.title }}" od {{ event.from_dt }} do {{ event.to_dt }}. Cena akce je: {{ event.price }} CZK. Dejte nam prosim vedet zda se zucastnite. Dekujeme, Team Sede Strely
+
+
+--
+SSIS

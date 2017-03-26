@@ -38,3 +38,13 @@ class Person(models.Model):
         Returns list of all available emails for notifications.
         """
         return filter(None, (self.email, self.mother_email, self.father_email))
+
+    def get_preferred_sms_numbers(self):
+        """
+        Returns list of phone numbers preferred for SMS notifications.
+        """
+        return filter(None, (
+            self.phone,
+            self.mother_phone if self.mother_phone_sms_preferred else None,
+            self.father_phone if self.father_phone_sms_preferred else None,
+        ))
