@@ -68,3 +68,30 @@ services:
       - SITE_URL_FULL
       - ADMIN_NOTIFICATION_EMAILS
     command: bash /app/prepare.sh
+
+  cron:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    volumes:
+     - .:/app
+    environment:
+      - ENVIRONMENT
+      - DATABASE_ENGINE
+      - DATABASE_NAME
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - DEBUG
+      - ALLOWED_HOSTS
+      - EMAIL_HOST
+      - EMAIL_PORT
+      - EMAIL_USER
+      - EMAIL_PASSWORD
+      - EMAIL_USE_TLS
+      - DEFAULT_EMAIL_FROM
+      - SITE_URL
+      - SITE_URL_FULL
+      - ADMIN_NOTIFICATION_EMAILS
+    command: bash /app/cron.sh
