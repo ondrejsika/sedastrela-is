@@ -25,6 +25,12 @@ Create first user
 . conf/dev && . conf/secrets && ./manage.py createsuperuser
 ```
 
+Migrate DB
+
+```
+. conf/dev && . conf/secrets && ./manage.py migrate
+```
+
 ## Run
 
 ### Development mode
