@@ -87,3 +87,5 @@ EMAIL_USE_TLS = settings_local.EMAIL_USE_TLS
 
 DEFAULT_EMAIL_FROM = settings_local.DEFAULT_EMAIL_FROM
 
+SITE_URL = settings_local.SITE_URL
+SITE_URL_FULL = settings_local.SITE_URL_FULL

@@ -13,3 +13,5 @@ EMAIL_USE_TLS = False
 
 DEFAULT_EMAIL_FROM = 'info@sedastrela.cz'
 
+SITE_URL = 'is.sedastrela.cz'
+SITE_URL_FULL = 'https://is.sedastrela.cz'
