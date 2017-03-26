@@ -14,7 +14,7 @@ virtualenv .env
 . .env/bin/activate
 pip install -U pip
 pip install -r requirements.txt
-cp conf/secrects--template conf/secrets
+cp conf/secrets--template conf/secrets
 # Update secets
 # vim conf/secrets
 ```
