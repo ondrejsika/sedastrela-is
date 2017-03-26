@@ -19,7 +19,7 @@ class Event(models.Model):
 
     def get_sms_notification_numbers(self):
         from sedastrela_is.person.models import Person
-        without = Attendee.objects.filter(event=self, state=Attendee.NO).values_list('id', flat=True)
+        without = Attendee.objects.filter(event=self, state=Attendee.NO).values_list('person_id', flat=True)
 
         numbers = []
         for person in Person.objects.exclude(id__in=without):
