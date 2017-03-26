@@ -1,0 +1,14 @@
+export ENVIRONMENT=dev
+
+export DEBUG=true
+
+export DATABASE_ENGINE=django.db.backends.sqlite3
+export DATABASE_NAME=db.sqlite3
+
+export DEFAULT_EMAIL_FROM=info@sedastrela.cz
+
+export SITE_URL=127.0.0.1
+export SITE_URL_FULL=https://127.0.0.1
+
+export ADMIN_NOTIFICATION_EMAILS='a@sika.email b@sika.email'
+

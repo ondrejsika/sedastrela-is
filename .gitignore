@@ -1,7 +1,8 @@
 # Project
 static
 *.sqlite3
-settings_local.py
+conf/secrets
+conf/prod
 
 # Python
 .env

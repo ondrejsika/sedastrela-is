@@ -1,0 +1,70 @@
+version: "2"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    volumes:
+     - .:/app
+    depends_on:
+      - prepare
+    environment:
+      - ENVIRONMENT
+      - DATABASE_ENGINE
+      - DATABASE_NAME
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - DEBUG
+      - ALLOWED_HOSTS
+      - EMAIL_HOST
+      - EMAIL_PORT
+      - EMAIL_USER
+      - EMAIL_PASSWORD
+      - EMAIL_USE_TLS
+      - DEFAULT_EMAIL_FROM
+      - SITE_URL
+      - SITE_URL_FULL
+      - ADMIN_NOTIFICATION_EMAILS
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+     - .:/app
+    ports:
+      - ${EXTERNAL_PORT}:80
+    depends_on:
+        - app
+    links:
+        - app
+
+  prepare:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    volumes:
+     - .:/app
+    environment:
+      - ENVIRONMENT
+      - DATABASE_ENGINE
+      - DATABASE_NAME
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - DEBUG
+      - ALLOWED_HOSTS
+      - EMAIL_HOST
+      - EMAIL_PORT
+      - EMAIL_USER
+      - EMAIL_PASSWORD
+      - EMAIL_USE_TLS
+      - DEFAULT_EMAIL_FROM
+      - SITE_URL
+      - SITE_URL_FULL
+      - ADMIN_NOTIFICATION_EMAILS
+    command: bash /app/prepare.sh

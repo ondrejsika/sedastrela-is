@@ -1,15 +1,36 @@
 import os
 
-import settings_local
 
+def _env(variable, default=None):
+    return os.environ.get(variable, default)
+
+
+def _env_bool(variable, default=None):
+    if _env(variable, default) == 'true':
+        return True
+    elif _env(variable, default) == 'false':
+        return False
+    else:
+        return default
+
+
+def _env_int(variable, default=None):
+    return int(_env(variable, default))
+
+
+ENVIRONMENT = _env('ENVIRONMENT')
+
+if not ENVIRONMENT:
+    raise Exception('No environment selected')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SECRET_KEY = '@)#)^e@-66*e9+m#srm)c3)0)4*o)y=#0@$wt6wis6wt@glx2@'
 
-DEBUG = True
+DEBUG = _env_bool('DEBUG', False)
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = _env('ALLOWED_HOSTS').split() if _env('ALLOWED_HOSTS') else []
 
 
 INSTALLED_APPS = (
@@ -60,12 +81,12 @@ WSGI_APPLICATION = 'wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': settings_local.DATABASES_ENGINE,
-        'NAME': settings_local.DATABASES_NAME,
-        'USER': settings_local.DATABASES_USER,
-        'PASSWORD': settings_local.DATABASES_PASSWORD,
-        'HOST': settings_local.DATABASES_HOST,
-        'PORT': settings_local.DATABASES_PORT,
+        'ENGINE': _env('DATABASE_ENGINE'),
+        'NAME': _env('DATABASE_NAME'),
+        'USER': _env('DATABASE_USER'),
+        'PASSWORD': _env('DATABASE_PASSWORD'),
+        'HOST': _env('DATABASE_HOST'),
+        'PORT': _env('DATABASE_PORT'),
     }
 }
 
@@ -79,15 +100,19 @@ USE_TZ = False
 STATIC_URL = '/static/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static')
 
-EMAIL_HOST = settings_local.EMAIL_HOST
-EMAIL_PORT = settings_local.EMAIL_PORT
-EMAIL_HOST_USER = settings_local.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = settings_local.EMAIL_HOST_PASSWORD
-EMAIL_USE_TLS = settings_local.EMAIL_USE_TLS
+EMAIL_HOST = _env('EMAIL_HOST', 'localhost')
+EMAIL_PORT = _env_int('EMAIL_PORT', 25)
+EMAIL_HOST_USER = _env('EMAIL_USER')
+EMAIL_HOST_PASSWORD = _env('EMAIL_PASSWORD')
+EMAIL_USE_TLS = _env_bool('EMAIL_USE_TLS')
 
-DEFAULT_EMAIL_FROM = settings_local.DEFAULT_EMAIL_FROM
+DEFAULT_EMAIL_FROM = _env('DEFAULT_EMAIL_FROM')
+assert DEFAULT_EMAIL_FROM
 
-SITE_URL = settings_local.SITE_URL
-SITE_URL_FULL = settings_local.SITE_URL_FULL
+SITE_URL = _env('SITE_URL')
+assert SITE_URL
+SITE_URL_FULL = _env('SITE_URL_FULL')
+assert SITE_URL_FULL
 
-ADMIN_NOTIFICATION_EMAILS = settings_local.ADMIN_NOTIFICATION_EMAILS
+ADMIN_NOTIFICATION_EMAILS = _env('ADMIN_NOTIFICATION_EMAILS').split()
+assert ADMIN_NOTIFICATION_EMAILS
