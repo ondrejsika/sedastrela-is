@@ -3,8 +3,8 @@
 
 {% block submit_buttons_bottom %}
     <div class="submit-row">
-        <a href="{% url 'ssis:event:admin:send_email_notification' 1 %}" class="button">Send Email Notification</a>
-        <a href="{% url 'ssis:event:admin:send_sms_notification' 1 %}" class="button">Send SMS Notification</a>
+        <a href="{% url 'ssis:event:admin:send_email_notification' original.id %}" class="button">Send Email Notification</a>
+        <a href="{% url 'ssis:event:admin:send_sms_notification' original.id %}" class="button">Send SMS Notification</a>
     </div>
 
     {{ block.super }}
