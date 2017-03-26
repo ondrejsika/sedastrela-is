@@ -1,0 +1,10 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+    <div class="submit-row">
+        <a href="{% url 'ssis:event:admin:send_email_notification' 1 %}" class="button">Send Notification</a>
+    </div>
+
+    {{ block.super }}
+{% endblock %}

@@ -35,22 +35,45 @@ class Attendee(models.Model):
 
 
 class EventNotification(models.Model):
+    OFFSET_NONE = None
     OFFSET_1D = '1d'
     OFFSET_7D = '7d'
     OFFSET_1M = '1m',
 
     OFFSETS = (
+        (OFFSET_NONE, 'Ihned'),
         (OFFSET_1D, '1 den'),
         (OFFSET_7D, '7 dni'),
         (OFFSET_1M, '1 mesic'),
     )
 
+    CHANNEL_EMAIL = 'email'
+    CHANNEL_CALL = 'call'
+    CHANNEL_SMS = 'sms'
+
+    CHANNELS = (
+        (CHANNEL_EMAIL, 'Email'),
+        (CHANNEL_CALL, 'Call'),
+        (CHANNEL_SMS, 'SMS')
+    )
+
     event = models.ForeignKey(Event)
     is_sent = models.BooleanField(default=False)
-    offset = models.CharField(max_length=4, choices=OFFSETS)
+    sent_dt = models.DateTimeField(null=True, blank=True)
+    offset = models.CharField(max_length=4, choices=OFFSETS, null=True, blank=True)
+    channel = models.CharField(max_length=5, choices=CHANNELS)
 
     class Meta:
         unique_together = ('event', 'offset')
 
     def __unicode__(self):
-        return u'%s %s %s #%s' % (self.event, self.is_sent, self.offset, self.id)
+        return u'%s %s %s %s #%s' % (self.event, self.channel, self.is_sent, self.offset, self.id)
+
+    def send(self):
+        from sedastrela_is.event.email import send_event_notification
+
+        send_event_notification(self.event)
+
+        self.is_sent = True
+        self.sent_dt = datetime.datetime.now()
+        self.save()
