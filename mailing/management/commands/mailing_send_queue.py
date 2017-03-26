@@ -7,4 +7,5 @@ class Command(BaseCommand):
     help = 'Run bitnotify cron task defined in bitnotify/cron.py'
 
     def handle(self, *args, **options):
-        send_queue(50)
+        q = send_queue(50)
+        print('%s emails has been sent' % q.count())

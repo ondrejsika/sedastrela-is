@@ -9,3 +9,4 @@ def send_queue(limit):
         send_mail(mq.subject, mq.body, mq.email_from, (mq.email_to, ))
         mq.is_send = True
         mq.save()
+    return q
