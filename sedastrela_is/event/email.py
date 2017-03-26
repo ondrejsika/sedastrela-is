@@ -1,3 +1,6 @@
+from django.core.urlresolvers import reverse
+from django.conf import settings
+
 from mailing import send_template_email
 
 from sedastrela_is.event.models import Event, Attendee
@@ -13,12 +16,18 @@ def send_event_email(event, template, context):
 
     for person in Person.objects.exclude(id__in=without):
         for email in person.get_emails():
-            return send_template_email(email, template, context)
+            c = {
+                'yes_link': reverse('ssis:event:attending', args=(person.token, event.id, 'yes')),
+                'no_link': reverse('ssis:event:attending', args=(person.token, event.id, 'no')),
+            }
+            c.update(context)
+            return send_template_email(email, template, c)
 
 
 def send_event_notification(event):
     return send_event_email(event, 'event_notification', {
         'event': event,
+        'SITE_URL_FULL': settings.SITE_URL_FULL,
     })
 
 

@@ -1,7 +1,11 @@
 from django.db import models
 
+from sedastrela_is.person.utils import get_random_string
+
 
 class Person(models.Model):
+    token = models.CharField(max_length=32, blank=True)
+
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     nick_name = models.CharField(max_length=32, null=True, blank=True)
@@ -48,3 +52,9 @@ class Person(models.Model):
             self.mother_phone if self.mother_phone_sms_preferred else None,
             self.father_phone if self.father_phone_sms_preferred else None,
         ))
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = get_random_string(32)
+
+        super(Person, self).save(*args, **kwargs)

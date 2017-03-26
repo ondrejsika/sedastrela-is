@@ -8,10 +8,10 @@ Vice informaci o akci zde:
 
 Cena akce je: {{ event.price }} CZK
 
-Dejte nam prosim vedet zda se zucastnite:
+Dejte nam prosim vedet zda se zucastnite (kliknete na odkaz podle preference):
 
-ano - http://ss.cz/atttend
-ne - http://ss.cz/no-attend
+ano - {{SITE_URL_FULL}}{{yes_link}}
+ne - {{SITE_URL_FULL}}{{no_link}}
 
 Dekujeme.
 
