@@ -39,6 +39,7 @@ class Attendee(models.Model):
     event = models.ForeignKey(Event)
     person = models.ForeignKey('person.Person')
     state = models.CharField(max_length=4, choices=STATES)
+    paid = models.BooleanField(default=None)
 
     def __unicode__(self):
         return u'%s %s %s' % (self.person, self.event, self.id)
